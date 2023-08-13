@@ -70,16 +70,12 @@ public class Ejemplar {
     }
     public List<Ejemplar> getEjemplares() {
         if (ejemplares == null) {
-            ejemplares = new ArrayList<>();
-            Pelicula pelicula1 = new Pelicula();
-            Ejemplar ejemplar = new Ejemplar("E001", true, 4.99, pelicula1.getPeliculas().get(0));
-            Ejemplar ejemplar2 = new Ejemplar("E002", true, 7, pelicula1.getPeliculas().get(1));
-            Ejemplar ejemplar3 = new Ejemplar("E003", true, 7, pelicula1.getPeliculas().get(1));
-            Ejemplar ejemplar4 = new Ejemplar("E004", true, 6, pelicula1.getPeliculas().get(2));
-            ejemplares.add(ejemplar);
-            ejemplares.add(ejemplar2);
-            ejemplares.add(ejemplar3);
-            ejemplares.add(ejemplar4);
+            Pelicula modeloPelicula = new Pelicula();
+            ejemplares = new ArrayList<Ejemplar>();
+            ejemplares.add(new Ejemplar("E001", true, 4.99, modeloPelicula.getPeliculas().get(0)));
+            ejemplares.add(new Ejemplar("E002", true, 7, modeloPelicula.getPeliculas().get(1)));
+            ejemplares.add(new Ejemplar("E003", true, 7, modeloPelicula.getPeliculas().get(1)));
+            ejemplares.add(new Ejemplar("E004", true, 6, modeloPelicula.getPeliculas().get(2)));
         }
         return ejemplares;
     }

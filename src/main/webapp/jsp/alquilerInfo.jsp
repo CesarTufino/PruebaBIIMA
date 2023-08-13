@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,13 +19,14 @@
         <tr>
             <th scope="col">Nro</th>
             <th scope="col">Cantidad de días</th>
+            <th scope="col">Precio total</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <c:set var="a1" value="${requestScope['alquiler']}"/>
-            <th scope="row">${a1.numero}</th>
-            <th scope="row">${a1.dias}</th>
+            <th scope="row">${alquiler.numeroAlquiler}</th>
+            <th scope="row">${alquiler.diasDeAlquiler}</th>
+            <th scope="row">${alquiler.precioTotal}</th>
         </tr>
         </tbody>
     </table>
@@ -35,23 +36,20 @@
         <thead>
         <tr>
             <th scope="col">Título</th>
-            <th scope="col">Duración</th>
             <th scope="col">Año</th>
             <th scope="col">Sinopsis</th>
-            <th scope="col">Genero</th>
-            <th scope="col">Puntaje</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <c:set var="p1" value="${requestScope['pelicula']}"/>
-            <th scope="row">${p1.titulo}</th>
-            <th scope="row">${p1.duracion}</th>
-            <th scope="row">${p1.añoLanzamiento}</th>
-            <th scope="row">${p1.sinopsis}</th>
-            <th scope="row">${p1.genero.nombre}</th>
-            <th scope="row">${p1.puntaje.puntajeTotal}</th>
-        </tr>
+
+            <c:forEach items="${alquiler.ejemplares}" var="ejemplar">
+            <tr>
+                <th scope="row">${ejemplar.pelicula.titulo}</th>
+                <th scope="row">${ejemplar.pelicula.anio}</th>
+                <th scope="row">${ejemplar.pelicula.sinopsis}</th>
+            </tr>
+            </c:forEach>
+
         </tbody>
     </table>
     <br>
@@ -61,23 +59,19 @@
         <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Teléfono</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <c:set var="c1" value="${requestScope['cliente']}"/>
-            <th scope="row">${c1.nombre}</th>
-            <th scope="row">${c1.apellido}</th>
-            <th scope="row">${c1.correo}</th>
-            <th scope="row">${c1.direccion}</th>
-            <th scope="row">${c1.telefono}</th>
+            <th scope="row">${alquiler.cliente.nombre}</th>
+            <th scope="row">${alquiler.cliente.apellido}</th>
         </tr>
         </tbody>
     </table>
-    <a href="index.jsp" type="button" class="btn btn-primary">Ok</a>
+    <c:if test="${alquiler.cliente.puntosPorFidelidad eq 100}">
+        <div class="alert alert-info" role="alert" >El cliente ha alcanzado el máximo de puntos de fidelidad.</div>
+    </c:if>
+    <a href="MenuController?ruta=inicio" type="button" class="btn btn-primary">Ok</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

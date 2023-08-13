@@ -9,13 +9,15 @@ public class Alquiler {
     private double precioTotal;
     private Cliente cliente;
     private List<Ejemplar> ejemplares = new ArrayList<Ejemplar>();
+    private static long contador = 0;
 
     private static List<Alquiler> alquileres = null;
 
     public Alquiler() {
     }
 
-    public Alquiler(int diasDeAlquiler, double precioTotal, Cliente cliente, List<Ejemplar> ejemplares) {
+    public Alquiler(long numero, int diasDeAlquiler, double precioTotal, Cliente cliente, List<Ejemplar> ejemplares) {
+        this.numeroAlquiler = numero;
         this.diasDeAlquiler = diasDeAlquiler;
         this.precioTotal = precioTotal;
         this.cliente = cliente;
@@ -71,19 +73,6 @@ public class Alquiler {
     public List<Alquiler> getAlquileres () {
         if(alquileres == null){
             alquileres = new ArrayList<Alquiler>();
-            List<Ejemplar> ejemplares = new ArrayList<>();
-            Ejemplar ejemplar = new Ejemplar();
-            ejemplares.add(ejemplar.getEjemplares().get(0));
-            ejemplares.add(ejemplar.getEjemplares().get(1));
-            Cliente cliente = new Cliente();
-            Alquiler alquiler1 = new Alquiler(1, 3, cliente.getClientes().get(0), ejemplares);
-
-            List<Ejemplar> ejemplares2 = new ArrayList<>();
-            ejemplares2.add(ejemplar.getEjemplares().get(3));
-            Alquiler alquiler2 = new Alquiler(1, 3, cliente.getClientes().get(0), ejemplares2);
-
-            alquileres.add(alquiler1);
-            alquileres.add(alquiler2);
         }
         return alquileres;
     }
@@ -107,7 +96,7 @@ public class Alquiler {
         cambiarDisponibilidadEjemplares(ejemplares);
         aumentarPuntosFidelidad(ejemplares, cliente);
         precioTotal = redondearPrecioDosDecimales(precioTotal);
-        return new Alquiler(diasAlquiler, precioTotal, cliente, ejemplares);
+        return new Alquiler(++contador, diasAlquiler, precioTotal, cliente, ejemplares);
     }
 
     public Alquiler alquilarFidelidad(int diasAlquiler, List<Ejemplar> ejemplares, Cliente cliente) {
@@ -118,7 +107,7 @@ public class Alquiler {
         cambiarDisponibilidadEjemplares(ejemplares);
         aumentarPuntosFidelidad(ejemplares, cliente);
         precioTotal = redondearPrecioDosDecimales(precioTotal);
-        return new Alquiler(diasAlquiler, precioTotal, cliente, ejemplares);
+        return new Alquiler(++contador, diasAlquiler, precioTotal, cliente, ejemplares);
     }
 
     private double calcularPrecioTotal(List<Ejemplar> ejemplares, int diasAlquiler) {
@@ -168,7 +157,10 @@ public class Alquiler {
         return precioNuevo;
     }
 
-    public void devolver(List<Ejemplar> ejemplares) {
+    public void devolver(List<Ejemplar> ejemplares, Cliente cliente, boolean tienePercanse) {
+        if (tienePercanse){
+            cliente.setPuntosPorFidelidad(0);
+        }
         for (Ejemplar ejemplar : ejemplares) {
             ejemplar.setEstadoDisponibilidad(true);
         }

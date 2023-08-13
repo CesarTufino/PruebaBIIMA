@@ -54,7 +54,7 @@ public class Cliente {
         this.puntosPorFidelidad = puntosPorFidelidad;
     }
 
-    // reglas del negocio
+    // Reglas del negocio
 
     public void create(Cliente c) {
         this.getClientes().add(c);
@@ -62,13 +62,13 @@ public class Cliente {
 
     public List<Cliente> getClientes() {
         if (clientes == null) {
-            clientes = new ArrayList<>();
-            Cliente cliente = new Cliente("1778569874", "Pérez", "Juan");
-            cliente.setPuntosPorFidelidad(50);
+            clientes = new ArrayList<Cliente>();
+            Cliente cliente1 = new Cliente("1778569874", "Pérez", "Juan");
+            cliente1.setPuntosPorFidelidad(50);
             Cliente cliente2 = new Cliente("1745747478", "Gómez", "Maria");
             cliente2.setPuntosPorFidelidad(100);
 
-            clientes.add(cliente);
+            clientes.add(cliente1);
             clientes.add(cliente2);
         }
         return clientes;
